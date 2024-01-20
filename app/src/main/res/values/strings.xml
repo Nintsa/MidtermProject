@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Kekka</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">LOGIN</string>
+    <string name="register">Register</string>
+    <string name="fill_your_information">Fill Your Information</string>
+    <string name="name">Name:</string>
+    <string name="last_name">Last Name:</string>
+    <string name="username">Username:</string>
+    <string name="mail">Email:</string>
+    <string name="address">Address:</string>
+    <string name="phone">Phone:</string>
+    <string name="website">Website:</string>
+    <string name="company">Company:</string>
+    <string name="street">Street</string>
+    <string name="city">City</string>
+    <string name="suite">Suite</string>
+    <string name="zip_code">ZIP Code</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="company_name">Company Name</string>
+    <string name="password_">Password:</string>
+    <string name="full_name">Full Name:</string>
+    <string name="profile_information">Profile Information</string>
+    <string name="total_score">Total Score:</string>
+</resources>
