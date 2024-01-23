@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserProfileFragment"
+    tools:context=".presentation.screen.profile.UserProfileFragment"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/profile_information"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"/>
 
@@ -67,13 +67,13 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <!--<androidx.appcompat.widget.AppCompatButton
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
         android:text="Change Password"
         android:textAllCaps="false"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/btnLogin"/>
+        android:id="@+id/btnLogin"/>-->
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homePageFragment"
-        android:name="com.example.kekka.presentation.base.login.HomePageFragment"
+        android:name="com.example.kekka.presentation.screen.login.HomePageFragment"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.kekka.presentation.base.register.RegisterFragment"
+        android:name="com.example.kekka.presentation.screen.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -28,7 +28,48 @@
     </fragment>
     <fragment
         android:id="@+id/chooseQuizTypeFragment"
-        android:name="com.example.kekka.ChooseQuizTypeFragment"
+        android:name="com.example.kekka.presentation.screen.quiz_type.ChooseQuizTypeFragment"
         android:label="fragment_choose_quiz_type"
-        tools:layout="@layout/fragment_choose_quiz_type" />
+        tools:layout="@layout/fragment_choose_quiz_type" >
+        <action
+            android:id="@+id/action_chooseQuizTypeFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+        <action
+            android:id="@+id/action_chooseQuizTypeFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.example.kekka.presentation.screen.questions.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/action_quizFragment_to_quizResultFragment"
+            app:destination="@id/quizResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.kekka.presentation.screen.profile.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/quizResultFragment"
+        android:name="com.example.kekka.presentation.screen.result.QuizResultFragment"
+        android:label="fragment_quiz_result"
+        tools:layout="@layout/fragment_quiz_result" >
+        <action
+            android:id="@+id/action_quizResultFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.kekka.presentation.screen.splash.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_chooseQuizTypeFragment"
+            app:destination="@id/chooseQuizTypeFragment" />
+    </fragment>
 </navigation>
