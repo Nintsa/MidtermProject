@@ -3,17 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screen.result.QuizResultFragment"
-    android:orientation="vertical">
+    android:background="@color/peach"
+    android:orientation="vertical"
+    tools:context=".presentation.screen.result.QuizResultFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/quiz_results"
         android:layout_gravity="center_horizontal"
-        android:textSize="35sp"
         android:layout_marginTop="30dp"
-        />
+        android:text="@string/quiz_results"
+        android:textColor="@color/black"
+        android:textSize="35sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,31 +31,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/correct_answers"
-                android:textSize="20sp"/>
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/incorrect_answers"
-                android:textSize="20sp"/>
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/percentage"
-                android:textSize="20sp"/>
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/score"
-                android:textSize="20sp"/>
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/total_score"
-                android:textSize="20sp"/>
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -62,40 +68,80 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:textColor="@color/black">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="60%"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="30"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </LinearLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="@integer/material_motion_duration_long_1"
+            android:background="@color/blue"
+            android:text="@string/retake_quiz"
+            android:textAllCaps="false"
+            android:textColor="@color/peach"
+            android:textSize="25sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="@integer/material_motion_duration_long_1"
+            android:background="@color/blue"
+            android:text="@string/save_score"
+            android:textAllCaps="false"
+            android:textColor="@color/peach"
+            android:textSize="25sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>

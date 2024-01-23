@@ -13,7 +13,7 @@ import com.example.kekka.R
 import com.example.kekka.presentation.base.BaseFragment
 import com.example.kekka.databinding.FragmentHomePageBinding
 import com.example.kekka.presentation.event.log_in.LogInEvent
-import com.example.kekka.presentation.View.showSnackBar
+import com.example.kekka.presentation.view.showSnackBar
 import com.example.kekka.state.log_in.LogInState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

@@ -3,6 +3,7 @@ package com.example.kekka.presentation.screen.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kekka.data.common.Resource
+import com.example.kekka.domain.model.login.GetToken
 import com.example.kekka.domain.usecase.LogInUseCase
 import com.example.kekka.domain.usecase.datastore.SaveTokenUseCase
 import com.example.kekka.domain.usecase.validator.EmailValidatorUseCase
@@ -48,7 +49,7 @@ class LogInViewModel @Inject constructor(
                         )
                     }
 
-                    is Resource.Success<*> -> {
+                    is Resource.Success<GetToken> -> {
                         _logInState.update { currentState -> currentState.copy(accessToken = it.data.accessToken) }
                         saveTokenUseCase(it.data.accessToken)
                         _uiEvent.emit(LogInUiEvent.NavigateToConnections)

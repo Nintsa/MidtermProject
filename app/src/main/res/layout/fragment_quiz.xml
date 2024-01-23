@@ -3,22 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screen.questions.QuizFragment"
-    android:orientation="vertical">
+    android:background="@color/peach"
+    android:orientation="vertical"
+    tools:context=".presentation.screen.questions.QuizFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/let_s_start_your_quiz"
-        android:textSize="35sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:text="@string/let_s_start_your_quiz"
+        android:textColor="@color/black"
+        android:textSize="35sp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:id="@+id/recyclerView"/>
+        android:layout_marginTop="15dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@color/blue"
+        android:text="@string/submit"
+        android:textAllCaps="false"
+        android:textColor="@color/peach"
+        android:textSize="25sp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

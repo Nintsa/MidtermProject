@@ -9,19 +9,16 @@ import com.example.kekka.R
 import com.example.kekka.presentation.base.BaseFragment
 import com.example.kekka.databinding.FragmentRegisterBinding
 import com.example.kekka.presentation.event.log_in.LogInEvent
+import com.example.kekka.presentation.event.register.RegisterEvent
 import com.example.kekka.presentation.screen.login.LogInViewModel
 
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
-    }
+    ): View = inflater.inflate(R.layout.fragment_register, container, false)
 
     private val viewModel: RegisterViewModel by viewModels()
 
@@ -29,7 +26,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     }
 
     override fun bindViewActionListeners() {
-        binding.btnRegister.setOnClickListener{
+        binding.btnRegister.setOnClickListener {
             register()
         }
     }
@@ -38,14 +35,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         TODO("Not yet implemented")
     }
 
-    fun register(){
+    private fun register() {
         viewModel.onEvent(
-            LogInEvent.LogIn(
+            RegisterEvent.Register(
+                name = "IDK",
                 email = binding.etEmail.text.toString(),
+                username = binding.etFullName.text.toString(),
                 password = binding.etPassword.text.toString()
             )
         )
     }
-
-
 }

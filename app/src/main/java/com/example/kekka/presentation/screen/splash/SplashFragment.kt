@@ -42,6 +42,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
             is SplashViewModel.SplashUiEvent.NavigateToChooseQuiz -> findNavController().navigate(
                 SplashFragmentDirections.actionSplashFragmentToChooseQuizTypeFragment()
             )
+
+            else -> {}
         }
     }
 }

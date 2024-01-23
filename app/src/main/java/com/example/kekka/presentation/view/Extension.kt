@@ -1,4 +1,4 @@
-package com.example.kekka.presentation.View
+package com.example.kekka.presentation.view
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar

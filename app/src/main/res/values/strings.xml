@@ -5,7 +5,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="login">LOGIN</string>
+    <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="fill_your_information">Fill Your Information</string>
     <string name="name">Name:</string>
@@ -40,4 +40,8 @@
     <string name="percentage">Percentage:</string>
     <string name="incorrect_answers">Incorrect Answers:</string>
     <string name="correct_answers">Correct Answers:</string>
+    <string name="submit">Submit</string>
+    <string name="retake_quiz">Retake Quiz</string>
+    <string name="save_score">Save Score</string>
+    <string name="fourth_answer">Fourth Answer</string>
 </resources>

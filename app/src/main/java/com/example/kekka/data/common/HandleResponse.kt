@@ -2,8 +2,11 @@ package com.example.kekka.data.common
 
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
+import javax.inject.Inject
 
-class HandleResponse() {
+class HandleResponse @Inject constructor(
+
+) {
     fun <T : Any> safeApiCall(call: suspend () -> Response<T>) = flow {
         emit(Resource.Loading(loading = true))
         try {

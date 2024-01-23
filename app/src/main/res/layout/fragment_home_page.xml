@@ -3,30 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screen.login.HomePageFragment"
-    android:orientation="vertical">
+    android:background="@color/peach"
+    android:orientation="vertical"
+    tools:context=".presentation.screen.login.HomePageFragment">
 
     <include
         android:id="@+id/loaderInclude"
         layout="@layout/loader" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="200dp"
         android:id="@+id/etEmail"
-        android:hint="@string/email"
-        android:layout_gravity="center_horizontal"
-        />
-    <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/etPassword"
-        android:hint="@string/password"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="200dp"
+        android:hint="@string/email"
+        android:textColor="@color/black" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPassword"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:hint="@string/password"
         android:inputType="textPassword"
-        />
+        android:textColor="@color/black" />
 
     <!--<androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -37,19 +39,27 @@
         android:id="@+id/tvForgotPassword"/>
 -->
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogin"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/login"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/btnLogin"/>
+        android:layout_marginTop="15dp"
+        android:background="@color/blue"
+        android:text="@string/login"
+        android:textAllCaps="false"
+        android:textColor="@color/peach"
+        android:textSize="25sp" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegister"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/register"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/btnRegister" />
+        android:layout_marginTop="10dp"
+        android:background="@color/blue"
+        android:text="@string/register"
+        android:textAllCaps="false"
+        android:textColor="@color/peach"
+        android:textSize="25sp" />
 
 </LinearLayout>

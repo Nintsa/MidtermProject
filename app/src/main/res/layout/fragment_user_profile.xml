@@ -3,16 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screen.profile.UserProfileFragment"
-    android:orientation="vertical">
+    android:background="@color/peach"
+    android:orientation="vertical"
+    tools:context=".presentation.screen.profile.UserProfileFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_information"
-        android:textSize="35sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:text="@string/profile_information"
+        android:textColor="@color/black"
+        android:textSize="35sp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -30,6 +32,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="30dp"
                 android:text="@string/username"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -38,6 +41,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="30dp"
                 android:text="@string/total_score"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -53,6 +57,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="30dp"
                 android:text="Kninca"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -61,6 +66,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="30dp"
                 android:text="30"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
