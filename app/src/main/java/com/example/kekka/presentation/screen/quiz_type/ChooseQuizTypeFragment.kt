@@ -1,139 +1,103 @@
 package com.example.kekka.presentation.screen.quiz_type
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import com.example.kekka.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.kekka.databinding.FragmentChooseQuizTypeBinding
 import com.example.kekka.presentation.base.BaseFragment
+import com.example.kekka.presentation.event.start_quiz.StartQuizEvent
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ChooseQuizTypeFragment :
     BaseFragment<FragmentChooseQuizTypeBinding>(FragmentChooseQuizTypeBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_choose_quiz_type, container, false)
+    private val viewModel: ChooseQuizTypeViewModel by viewModels()
 
-        setData()
-    }
+    private val categories = listOf(
+        Pair("", "Any Category"),
+        Pair("9", "General Knowledge"),
+        Pair("10", "Entertainment: Books"),
+        Pair("11", "Entertainment: Films"),
+        Pair("12", "Entertainment: Music"),
+        Pair("13", "Entertainment: Musicals & Theatres"),
+        Pair("14", "Entertainment: Television"),
+        Pair("15", "Entertainment: Video Games"),
+        Pair("16", "Entertainment: Board Games"),
+        Pair("17", "Science & Nature"),
+        Pair("18", "Science: Computers"),
+        Pair("19", "Science: Mathematics"),
+        Pair("20", "Mythology"),
+        Pair("21", "Sports"),
+        Pair("22", "Geography"),
+        Pair("23", "History"),
+        Pair("24", "Politics"),
+        Pair("25", "Art"),
+        Pair("26", "Celebrities"),
+        Pair("27", "Animals"),
+        Pair("28", "Vehicles"),
+        Pair("29", "Entertainments: Comics"),
+        Pair("30", "Science: Gadgets"),
+        Pair("31", "Entertainments: Japanese Anime & Manga"),
+        Pair("32", "Entertainments: Cartoons & Animations")
+    )
 
-    fun setData() {
-        setCategoriesData()
-        setQuestionsQuantity()
-        setTypeData()
-        setDifficultyData()
-    }
-
-    fun setCategoriesData() {
-        val categories = listOf(
-            "Any Category",
-            "General Knowledge",
-            "Entertainment: Books",
-            "Entertainment: Films",
-            "Entertainment: Music",
-            "Entertainment: Musicals & Theatres",
-            "Entertainment: Television",
-            "Entertainment: Video Games",
-            "Entertainment: Board Games",
-            "Science & Nature",
-            "Science: Computers",
-            "Science: Mathematics",
-            "Mythology",
-            "Sports",
-            "Geography",
-            "History",
-            "Politics",
-            "Art",
-            "Celebrities",
-            "Animals",
-            "Vehicles",
-            "Entertainments: Comics",
-            "Science: Gadgets",
-            "Entertainments: Japanese Anime & Manga",
-            "Entertainments: Cartoons & Animations"
-        )
-
-        val autocomplete: AutoCompleteTextView = binding.acCategory
-
-        val categoriesAdapter = ArrayAdapter(
-            requireContext(), R.layout.fragment_choose_quiz_type, categories
-        )
-        autocomplete.setAdapter(categoriesAdapter)
-
-        autocomplete.onItemClickListener =
-            AdapterView.OnItemClickListener { AdapterView, view, i, l ->
-
-                val categorySelected = AdapterView.getItemAtPosition(i).toString()
-            }
-    }
-
-    fun setQuestionsQuantity() {
-
-        val questionsQuantity =
-            listOf("5", "10", "20", "30", "40", "50")
-        val autocomplete: AutoCompleteTextView = binding.acNumberOfQuestions
-
-        val questionsQuantityAdapter = ArrayAdapter(
-            requireContext(), R.layout.fragment_choose_quiz_type, questionsQuantity
-        )
-        autocomplete.setAdapter(questionsQuantityAdapter)
-
-        autocomplete.onItemClickListener =
-            AdapterView.OnItemClickListener { AdapterView, view, i, l ->
-
-                val quantity = AdapterView.getItemAtPosition(i).toString()
-            }
-    }
-
-    fun setDifficultyData() {
-        val difficultyData = listOf("Any Difficulty", "Easy", "Medium", "Hard")
-
-        val autocomplete: AutoCompleteTextView = binding.acDifficulty
-
-        val difficultyAdapter = ArrayAdapter(
-            requireContext(), R.layout.fragment_choose_quiz_type, difficultyData
-        )
-
-        autocomplete.setAdapter(difficultyAdapter)
-
-        autocomplete.onItemClickListener =
-            AdapterView.OnItemClickListener { AdapterView, vies, i, l ->
-                val difficulty = AdapterView.getItemAtPosition(i).toString()
-            }
-    }
-
-    fun setTypeData() {
-        val types = listOf("Any Type", "Multiple Choice", "True/False")
-
-        val autocomplete: AutoCompleteTextView = binding.acType
-
-        val typeAdapter = ArrayAdapter(
-            requireContext(), R.layout.fragment_choose_quiz_type, types
-        )
-
-        autocomplete.setAdapter(typeAdapter)
-
-        autocomplete.onItemClickListener =
-            AdapterView.OnItemClickListener { AdapterView, view, i, l ->
-
-                val type = AdapterView.getItemAtPosition(i).toString()
-            }
-    }
 
     override fun bind() {
+        binding.btnStart.setOnClickListener {
+            startQuiz()
+        }
     }
 
     override fun bindViewActionListeners() {
+        binding.acNumberOfQuestions.adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            categories.map { it.second },
+        ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+
+        binding.acNumberOfQuestions.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.onEvent(StartQuizEvent.SelectQuizCategory(categories[position].first))
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
+            }
     }
 
     override fun bindObserves() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiEvent.collect {
+                    handleUiEvent(it)
+                }
+            }
+        }
     }
 
+    private fun handleUiEvent(event: ChooseQuizTypeViewModel.StartQuizUiEvent) {
+        when (event) {
+            is ChooseQuizTypeViewModel.StartQuizUiEvent.NavigateToQuiz -> findNavController().navigate(
+                ChooseQuizTypeFragmentDirections.actionChooseQuizTypeFragmentToQuizFragment(
+                    categoryId = event.categoryId
+                )
+            )
+        }
+    }
 
+    private fun startQuiz() {
+        viewModel.onEvent(StartQuizEvent.StartQuiz)
+    }
 }

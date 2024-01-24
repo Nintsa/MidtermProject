@@ -1,45 +1,39 @@
 package com.example.kekka.presentation.screen.login
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.kekka.R
 import com.example.kekka.presentation.base.BaseFragment
 import com.example.kekka.databinding.FragmentHomePageBinding
 import com.example.kekka.presentation.event.log_in.LogInEvent
-import com.example.kekka.presentation.view.showSnackBar
-import com.example.kekka.state.log_in.LogInState
+import com.example.kekka.presentation.screen.view.showSnackBar
+import com.example.kekka.presentation.screen.state.log_in.LogInState
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_page, container, false)
-    }
-
     private val viewModel: LogInViewModel by viewModels()
 
+    private lateinit var auth: FirebaseAuth
+
     override fun bind() {
+        auth = Firebase.auth
     }
 
     override fun bindViewActionListeners() {
         binding.btnLogin.setOnClickListener {
             logIn()
         }
-        binding.btnRegister.setOnClickListener{
-
+        binding.btnRegister.setOnClickListener {
+            viewModel.onEvent(LogInEvent.Register)
         }
     }
 
@@ -61,12 +55,16 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
     }
 
     private fun logIn() {
-        viewModel.onEvent(
-            LogInEvent.LogIn(
-                email = binding.etEmail.text.toString(),
-                password = binding.etPassword.text.toString()
-            )
-        )
+        val email = binding.etEmail.text.toString()
+        val password = binding.etPassword.text.toString()
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    viewModel.auth()
+                } else {
+                    viewModel.showError("User not found")
+                }
+            }
     }
 
     private fun handleLogInState(logInState: LogInState) {
@@ -75,16 +73,18 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
 
         logInState.errorMessage?.let {
             binding.root.showSnackBar(message = it)
-            viewModel.onEvent(LogInEvent.ResetErrorMessage)
         }
     }
 
     private fun handleNavigationEvents(event: LogInViewModel.LogInUiEvent) {
         when (event) {
-            is LogInViewModel.LogInUiEvent.NavigateToConnections -> findNavController().navigate(
+            is LogInViewModel.LogInUiEvent.NavigateToQuiz -> findNavController().navigate(
                 HomePageFragmentDirections.actionHomePageFragmentToChooseQuizTypeFragment()
+            )
+
+            LogInViewModel.LogInUiEvent.NavigateToRegistration -> findNavController().navigate(
+                HomePageFragmentDirections.actionHomePageFragmentToRegisterFragment()
             )
         }
     }
-
 }

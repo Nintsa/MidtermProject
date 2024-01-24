@@ -1,4 +1,4 @@
-package com.example.kekka.state
+package com.example.kekka.presentation.screen.state
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

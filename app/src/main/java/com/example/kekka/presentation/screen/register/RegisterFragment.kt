@@ -1,28 +1,28 @@
 package com.example.kekka.presentation.screen.register
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.kekka.R
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.kekka.presentation.base.BaseFragment
 import com.example.kekka.databinding.FragmentRegisterBinding
-import com.example.kekka.presentation.event.log_in.LogInEvent
 import com.example.kekka.presentation.event.register.RegisterEvent
-import com.example.kekka.presentation.screen.login.LogInViewModel
-
+import com.example.kekka.presentation.screen.view.showSnackBar
+import com.example.kekka.presentation.screen.state.register.RegisterState
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import kotlinx.coroutines.launch
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_register, container, false)
-
     private val viewModel: RegisterViewModel by viewModels()
 
+    private lateinit var auth: FirebaseAuth
+
     override fun bind() {
+        auth = Firebase.auth
     }
 
     override fun bindViewActionListeners() {
@@ -32,17 +32,48 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     }
 
     override fun bindObserves() {
-        TODO("Not yet implemented")
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.registerState.collect {
+                    handleRegistrationState(it)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiEvent.collect {
+                    handleUiEvent(it)
+                }
+            }
+        }
+    }
+
+    private fun handleRegistrationState(state: RegisterState) {
+        state.errorMessage?.let {
+            binding.root.showSnackBar(message = it)
+        }
+    }
+
+    private fun handleUiEvent(event: RegisterViewModel.RegisterUiEvent) {
+        when (event) {
+            RegisterViewModel.RegisterUiEvent.NavigateToQuiz -> findNavController().navigate(
+                RegisterFragmentDirections.actionRegisterFragmentToChooseQuizTypeFragment()
+            )
+        }
     }
 
     private fun register() {
-        viewModel.onEvent(
-            RegisterEvent.Register(
-                name = "IDK",
-                email = binding.etEmail.text.toString(),
-                username = binding.etFullName.text.toString(),
-                password = binding.etPassword.text.toString()
-            )
-        )
+        val email = binding.etEmail.text.toString()
+        val password = binding.etPassword.text.toString()
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    viewModel.onEvent(RegisterEvent.Registered)
+                } else {
+                    viewModel.showError("Could not create user!")
+                }
+            }
     }
 }

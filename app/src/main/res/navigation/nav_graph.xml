@@ -35,8 +35,8 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_registerFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
+            android:id="@+id/action_registerFragment_to_chooseQuizTypeFragment"
+            app:destination="@id/chooseQuizTypeFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseQuizTypeFragment"
@@ -58,6 +58,10 @@
         <action
             android:id="@+id/action_quizFragment_to_quizResultFragment"
             app:destination="@id/quizResultFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
     <fragment
         android:id="@+id/userProfileFragment"

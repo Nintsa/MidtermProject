@@ -1,19 +1,53 @@
 package com.example.kekka.presentation.screen.questions
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.kekka.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kekka.databinding.FragmentQuizBinding
+import com.example.kekka.presentation.base.BaseFragment
+import com.example.kekka.presentation.screen.state.quiz.QuizState
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-class QuizFragment : Fragment() {
+@AndroidEntryPoint
+class QuizFragment : BaseFragment<FragmentQuizBinding>(FragmentQuizBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_quiz, container, false)
+    private val viewModel: QuizViewModel by viewModels()
+
+    override fun bind() {
+    }
+
+    override fun bindViewActionListeners() {
+    }
+
+    override fun bindObserves() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.logInState.collect {
+                    handleState(it)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.correctAnswersCount.collect { result ->
+                    binding.btnSubmit.setOnClickListener {
+                        result
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleState(state: QuizState) {
+        if (state.questions.isNotEmpty()) {
+            binding.recyclerView.layoutManager = LinearLayoutManager(context)
+            binding.recyclerView.adapter = QuestionRecyclerViewAdapter(state.questions) {
+                viewModel.score()
+            }
+        }
     }
 }

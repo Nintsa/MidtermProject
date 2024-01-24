@@ -1,4 +1,4 @@
-package com.example.kekka.domain.usecase
+package com.example.kekka.domain.usecase.login
 
 import com.example.kekka.domain.repository.LogInRepository
 import javax.inject.Inject

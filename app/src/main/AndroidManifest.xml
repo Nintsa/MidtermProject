@@ -10,13 +10,13 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/ic_quiz_app"
         android:label="@string/app_name"
-        android:name=".KekkaApp"
+        android:name=".di.KekkaApp"
         android:roundIcon="@drawable/ic_quiz_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kekka"
         tools:targetApi="31">
         <activity
-            android:name=".state.MainActivity"
+            android:name=".presentation.screen.state.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

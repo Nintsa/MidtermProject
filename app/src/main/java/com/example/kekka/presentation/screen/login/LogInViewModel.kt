@@ -2,14 +2,8 @@ package com.example.kekka.presentation.screen.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kekka.data.common.Resource
-import com.example.kekka.domain.model.login.GetToken
-import com.example.kekka.domain.usecase.LogInUseCase
-import com.example.kekka.domain.usecase.datastore.SaveTokenUseCase
-import com.example.kekka.domain.usecase.validator.EmailValidatorUseCase
-import com.example.kekka.domain.usecase.validator.PasswordValidatorUseCase
 import com.example.kekka.presentation.event.log_in.LogInEvent
-import com.example.kekka.state.log_in.LogInState
+import com.example.kekka.presentation.screen.state.log_in.LogInState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,12 +14,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LogInViewModel @Inject constructor(
-    private val logInUseCase: LogInUseCase,
-    private val saveTokenUseCase: SaveTokenUseCase,
-    private val emailValidator: EmailValidatorUseCase,
-    private val passwordValidator: PasswordValidatorUseCase
-) : ViewModel() {
+class LogInViewModel @Inject constructor() : ViewModel() {
+
     private val _logInState = MutableStateFlow(LogInState())
     val logInState: SharedFlow<LogInState> = _logInState.asStateFlow()
 
@@ -33,54 +23,29 @@ class LogInViewModel @Inject constructor(
     val uiEvent: SharedFlow<LogInUiEvent> get() = _uiEvent
 
     fun onEvent(event: LogInEvent) {
-        when (event) {
-            is LogInEvent.LogIn -> validateForm(email = event.email, password = event.password)
-            is LogInEvent.ResetErrorMessage -> updateErrorMessage(message = null)
-        }
-    }
-
-    private fun logIn(email: String, password: String) {
         viewModelScope.launch {
-            logInUseCase(email = email, password = password).collect {
-                when (it) {
-                    is Resource.Loading<*> -> _logInState.update { currentState ->
-                        currentState.copy(
-                            isLoading = it.loading
-                        )
-                    }
-
-                    is Resource.Success<GetToken> -> {
-                        _logInState.update { currentState -> currentState.copy(accessToken = it.data.accessToken) }
-                        saveTokenUseCase(it.data.accessToken)
-                        _uiEvent.emit(LogInUiEvent.NavigateToConnections)
-                    }
-
-                    is Resource.Error<*> -> updateErrorMessage(message = it.errorMessage)
-                }
+            when (event) {
+                is LogInEvent.Register ->
+                    _uiEvent.emit(LogInUiEvent.NavigateToRegistration)
             }
         }
     }
 
-    private fun validateForm(email: String, password: String) {
-        val isEmailValid = emailValidator(email)
-        val isPasswordValid = passwordValidator(password)
-
-        val areFieldsValid =
-            listOf(isEmailValid, isPasswordValid)
-                .all { it }
-
-        if (!areFieldsValid) {
-            updateErrorMessage(message = "Fields are not valid!")
-            return
+    fun showError(errorMessage: String) {
+        _logInState.update {
+            it.copy(errorMessage = errorMessage)
         }
-
-        logIn(email = email, password = password)
     }
 
-    private fun updateErrorMessage(message: String?) {
-        _logInState.update { currentState -> currentState.copy(errorMessage = message) }
+    fun auth() {
+        viewModelScope.launch {
+            _uiEvent.emit(LogInUiEvent.NavigateToQuiz)
+        }
     }
 
     sealed interface LogInUiEvent {
-        data object NavigateToConnections : LogInUiEvent
-    }}
+        data object NavigateToQuiz : LogInUiEvent
+        data object NavigateToRegistration : LogInUiEvent
+    }
+
+}

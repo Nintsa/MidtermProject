@@ -1,4 +1,4 @@
-package com.example.kekka
+package com.example.kekka.domain.model.quiz
 
 import com.squareup.moshi.Json
 

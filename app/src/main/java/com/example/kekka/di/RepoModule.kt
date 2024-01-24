@@ -3,8 +3,10 @@ package com.example.kekka.di
 import com.example.kekka.data.repository.LogInRepositoryImpl
 import com.example.kekka.domain.repository.DataStoreRepository
 import com.example.kekka.data.repository.DataStoreRepositoryImpl
+import com.example.kekka.data.repository.QuizRepositoryImpl
 import com.example.kekka.data.repository.RegisterRepositoryImpl
 import com.example.kekka.domain.repository.LogInRepository
+import com.example.kekka.domain.repository.QuizRepository
 import com.example.kekka.domain.repository.RegisterRepository
 import dagger.Binds
 import dagger.Module
@@ -24,4 +26,6 @@ abstract class RepoModule {
     @Binds
     abstract fun bindDataStoreRepository(dataStoreRepository: DataStoreRepositoryImpl): DataStoreRepository
 
+    @Binds
+    abstract fun bindsQuizRepository(quizRepository: QuizRepositoryImpl): QuizRepository
 }

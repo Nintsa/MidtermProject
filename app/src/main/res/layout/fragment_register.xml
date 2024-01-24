@@ -27,23 +27,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--<androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="30dp"
-                android:text="@string/full_name"
-                android:textSize="20sp" />-->
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="30dp"
-                android:text="@string/username"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
@@ -68,19 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/etFullName"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="15dp"
-                android:textColor="@color/black" />
-
-            <!--<androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/etLastName"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="15dp" />-->
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etEmail"

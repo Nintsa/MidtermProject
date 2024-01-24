@@ -1,13 +1,8 @@
 package com.example.kekka.presentation.event.register
 
-open class RegisterEvent {
+sealed interface RegisterEvent {
 
-    data class Register(
-        val name: String,
-        val username: String,
-        val email: String,
-        val password: String
-    ) : RegisterEvent()
+    data object Registered : RegisterEvent
 
-    object ResetErrorMessage : RegisterEvent()
+    data object ResetErrorMessage : RegisterEvent
 }
